@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine Surprise ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+  background: radial-gradient(circle at top, #ff9acb, #ff4d88);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+/* floating hearts */
+.heart{
+  position:absolute;
+  width:20px;
+  height:20px;
+  background:red;
+  transform:rotate(45deg);
+  animation: float 8s linear infinite;
+  opacity:.3;
+}
+.heart::before,
+.heart::after{
+  content:'';
+  position:absolute;
+  width:20px;
+  height:20px;
+  background:red;
+  border-radius:50%;
+}
+.heart::before{top:-10px;left:0}
+.heart::after{left:-10px;top:0}
+
+@keyframes float{
+  from{bottom:-50px;transform:rotate(45deg) translateX(0)}
+  to{bottom:110%;transform:rotate(45deg) translateX(80px)}
+}
+
+.container{
+  background:white;
+  padding:40px 25px;
+  border-radius:20px;
+  width:92%;
+  max-width:480px;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,.25);
+  animation: pop .8s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(.6);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+h1{
+  color:#ff2f7a;
+  font-size:2.1rem;
+  margin-bottom:25px;
+}
+
+.buttons{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+}
+
+button{
+  border:none;
+  padding:14px 28px;
+  font-size:1.1rem;
+  border-radius:50px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.yes{background:#ff2f7a;color:white}
+.no{background:#444;color:white}
+
+button:hover{
+  transform:scale(1.1);
+}
+
+/* NO screen */
+.noScreen{display:none;}
+.noScreen p{
+  font-size:1.4rem;
+  margin-bottom:25px;
+  color:#ff2f7a;
+  font-weight:600;
+}
+.tryBtn{
+  background:#ff2f7a;
+  color:white;
+}
+
+/* dramatic no animation */
+@keyframes shakePop{
+  0%{transform:scale(.6) rotate(0deg);opacity:0}
+  30%{transform:scale(1.2) rotate(2deg)}
+  60%{transform:scale(.9) rotate(-2deg)}
+  100%{transform:scale(1) rotate(0);opacity:1}
+}
+
+.noScreen.animate{
+  animation: shakePop .9s ease;
+}
+
+/* YES screen */
+.yesScreen{display:none;}
+
+.letters{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:18px;
+}
+
+@media(min-width:600px){
+  .letters{grid-template-columns:repeat(3,1fr);}
+}
+
+/* envelopes */
+.envelope{
+  background:#fff;
+  border-radius:18px;
+  padding:20px;
+  cursor:pointer;
+  text-align:center;
+  position:relative;
+  box-shadow:0 10px 25px rgba(0,0,0,.25);
+  animation: floatIn .8s ease forwards;
+  opacity:0;
+}
+
+.envelope:nth-child(1){animation-delay:.2s}
+.envelope:nth-child(2){animation-delay:.6s}
+.envelope:nth-child(3){animation-delay:1s}
+
+.envelope span{
+  font-weight:600;
+  color:#ff2f7a;
+}
+
+.envelope::before{
+  content:"💌";
+  font-size:3rem;
+  display:block;
+}
+
+@keyframes floatIn{
+  from{transform:translateY(40px) scale(.9);opacity:0}
+  to{transform:translateY(0) scale(1);opacity:1}
+}
+
+/* popup + blur */
+.blur{filter:blur(6px);}
+
+.videoBox{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+
+.videoWrap{
+  background:white;
+  padding:15px;
+  border-radius:18px;
+  width:90%;
+  max-width:400px;
+  position:relative;
+}
+
+.videoWrap video{
+  width:100%;
+  border-radius:14px;
+}
+
+.closeBtn{
+  position:absolute;
+  top:-10px;
+  right:-10px;
+  background:#ff2f7a;
+  color:white;
+  border:none;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  font-size:18px;
+  cursor:pointer;
+}
+
+/* final screen */
+.finalScreen{display:none;}
+
+/* next screen */
+.nextScreen{display:none;}
+.nextScreen img.finalPic{
+  width:100%;
+  border-radius:18px;
+  margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<script>
+for(let i=0;i<18;i++){
+  let h=document.createElement("div");
+  h.className="heart";
+  h.style.left=Math.random()*100+"%";
+  h.style.animationDuration=5+Math.random()*5+"s";
+  document.body.appendChild(h);
+}
+</script>
+
+<div class="container" id="main">
+
+  <!-- QUESTION -->
+  <div class="question">
+    <h1>Do you love me? ❤️</h1>
+    <div class="buttons">
+      <button class="yes" onclick="yesClick()">Yes 💖</button>
+      <button class="no" onclick="noClick()">No 😒</button>
+    </div>
+  </div>
+
+  <!-- NO RESULT -->
+  <div class="noScreen">
+    <p>mujhy tw yehi ummed thi 🙂‍↕️🙂‍↕️</p>
+    <button class="tryBtn" onclick="restart()">Try Again 🔁</button>
+  </div>
+
+  <!-- YES RESULT -->
+  <div class="yesScreen">
+    <h1>Three Letters For You 💌</h1>
+
+    <div class="letters">
+      <div class="envelope" onclick="openVideo(1)">
+        <span>Open Letter 1</span>
+      </div>
+      <div class="envelope" onclick="openVideo(2)">
+        <span>Open Letter 2</span>
+      </div>
+      <div class="envelope" onclick="openVideo(3)">
+        <span>Open Letter 3</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL -->
+  <div class="finalScreen" id="finalScreen">
+    <h1>Will you be my Valentine? 💖🌹</h1>
+    <button class="yes" onclick="goNext()">Next ➡️</button>
+  </div>
+
+  <!-- NEXT SCREEN -->
+  <div class="nextScreen" id="nextScreen">
+    <h1>from this to this how night change ✨</h1>
+    <img src="night.jpg" class="finalPic">
+  </div>
+
+</div>
+
+<!-- VIDEO POPUP -->
+<div class="videoBox" id="videoBox">
+  <div class="videoWrap">
+    <button class="closeBtn" onclick="closeVideo()">✖</button>
+    <video id="popupVideo" controls></video>
+  </div>
+</div>
+
+<script>
+let watched=[false,false,false];
+let current=0;
+
+function noClick(){
+  document.querySelector(".question").style.display="none";
+  const noBox=document.querySelector(".noScreen");
+  noBox.style.display="block";
+  noBox.classList.remove("animate");
+  void noBox.offsetWidth;
+  noBox.classList.add("animate");
+}
+
+function yesClick(){
+  document.querySelector(".question").style.display="none";
+  document.querySelector(".yesScreen").style.display="block";
+}
+
+function restart(){location.reload();}
+
+function openVideo(n){
+  const video=document.getElementById("popupVideo");
+  const box=document.getElementById("videoBox");
+  const main=document.getElementById("main");
+
+  if(n===1) video.src="InShot_20260131_232057669.mp4";
+  if(n===2) video.src="InShot_20260131_232002917.mp4";
+  if(n===3) video.src="InShot_20260131_231837455.mp4";
+
+  box.style.display="flex";
+  main.classList.add("blur");
+  current=n;
+  video.play();
+}
+
+function closeVideo(){
+  const box=document.getElementById("videoBox");
+  const video=document.getElementById("popupVideo");
+  const main=document.getElementById("main");
+
+  video.pause();
+  video.src="";
+  box.style.display="none";
+  main.classList.remove("blur");
+
+  if(current>0) watched[current-1]=true;
+
+  if(watched.every(v=>v)){
+    document.querySelector(".yesScreen").style.display="none";
+    document.getElementById("finalScreen").style.display="block";
+  }
+}
+
+function goNext(){
+  document.getElementById("finalScreen").style.display="none";
+  document.getElementById("nextScreen").style.display="block";
+}
+</script>
+
+</body>
+</html>

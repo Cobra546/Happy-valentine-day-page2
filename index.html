@@ -106,7 +106,7 @@ border-radius:18px;
 margin-top:15px;
 }
 
-/* Close button */
+/* Close */
 .closeBtn{
 position:absolute;
 top:-12px;
@@ -121,16 +121,10 @@ font-size:20px;
 cursor:pointer;
 }
 
-/* Fade screen */
+/* Fade */
 @keyframes fadeIn{
-0%{
-opacity:0;
-transform:scale(.9) translateY(40px);
-}
-100%{
-opacity:1;
-transform:scale(1) translateY(0);
-}
+0%{opacity:0;transform:scale(.9) translateY(40px)}
+100%{opacity:1;transform:scale(1) translateY(0)}
 }
 
 /* Final text */
@@ -145,68 +139,95 @@ animation:fadeIn 2s ease;
 
 <body>
 
+<!-- START -->
 <div class="screen show" id="startScreen">
 <h1>Do you love me? ❤️</h1>
-<div>
 <button onclick="yesClick()">Yes</button>
 <button onclick="noClick()">No</button>
 </div>
-</div>
 
+<!-- NO -->
 <div class="screen" id="noScreen">
 <p class="noText">Mujhy tw yehi umeed thi 🙂‍↕️🙂‍↕️</p>
 <button onclick="restart()">Try Again</button>
 </div>
 
+<!-- LETTERS -->
 <div class="screen" id="letterScreen">
 <h1>Open a love letter 💌</h1>
 <div class="letters">
-<div class="letter" onclick="openVideo(1)">💌</div>
-<div class="letter" onclick="openVideo(2)">💌</div>
-<div class="letter" onclick="openVideo(3)">💌</div>
+<div class="letter" onclick="openVideo(1,this)">💌</div>
+<div class="letter" onclick="openVideo(2,this)">💌</div>
+<div class="letter" onclick="openVideo(3,this)">💌</div>
 </div>
 </div>
 
+<!-- VIDEO -->
 <div class="screen" id="videoScreen">
+<div class="videoBox">
+<button class="closeBtn" onclick="closeVideo()">✖</button>
 <video id="letterVideo" controls></video>
+</div>
 <button onclick="nextFinal()">Next ➡️</button>
 </div>
 
+<!-- FINAL -->
 <div class="screen" id="nextScreen">
 <h1>from this to this how night change ✨</h1>
+
 <video autoplay muted loop playsinline>
 <source src="lv_0_20260204010534.mp4" type="video/mp4">
 </video>
+
 <p class="finalText">
-Yaar mujhy pata hai main acha aur perfect boyfriend nhi hun but i swear main banna chah ta hun aur apko kabhi bhi khona nhi chah ta hn main manta hun main apko tang karta hun gussa dila ta hun aesi harkaten karta hun jissy apko gussa aye magar main sach main jaan ky nhi karta bas kbhi kbara jaan ky karta hun lekin sorry meri waja sy apki izzat py baat ayi aur apky father aur apky ghar py pata chal gaya I'm so sorry aur mujhy us baat ka guilt hai aur pakka ab aisa kuch nhi hoga jissy apki izzat kharab ho promise ab aisa nhi hoga ayenda aur na hi ab apki izzat py koi baat any dunga main apni waja sy
+Yaar mujhy pata hai main acha aur perfect boyfriend nhi hun but i swear main banna chah ta hun aur apko kabhi bhi khona nhi chah ta hn main manta hun main apko tang karta hun gussa dila ta hun aesi harkaten karta hun jissy apko gussa aye magar main sach main jaan ky nhi karta bas kbhi kbara jaan ky karta hun lekin sorry meri waja sy apki izzat py baat ayi aur apky father aur apky ghar py pata chal gaya I'm so sorry aur mujhy us baat ka guilt hai aur pakka ab aisa kuch nhi hoga jissy apki izzat kharab ho promise aur apko ayenda kbhi bhi meri waja sy kisi sy chup na nhi pady ga
 </p>
+
 <audio id="bgSong" loop>
 <source src="night_changes.mp3" type="audio/mpeg">
 </audio>
 </div>
 
 <script>
-function hideAll(){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('show'))}
-function yesClick(){hideAll();document.getElementById('letterScreen').classList.add('show')}
-function noClick(){hideAll();document.getElementById('noScreen').classList.add('show')}
-function restart(){location.reload()}
+function hideAll(){
+document.querySelectorAll(".screen")
+.forEach(s=>s.classList.remove("show"));
+}
 
-let videos=["lv_0_20260202185657.mp4","InShot_20260131_232002917.mp4","InShot_20260131_231837455.mp4"];
+function yesClick(){
+hideAll();
+document.getElementById("letterScreen").classList.add("show");
+}
+
+function noClick(){
+hideAll();
+document.getElementById("noScreen").classList.add("show");
+}
+
+function restart(){location.reload();}
+
+let videos=[
+"lv_0_20260202185657.mp4",
+"InShot_20260131_232002917.mp4",
+"InShot_20260131_231837455.mp4"
+];
 
 function openVideo(i,el){
-document.querySelectorAll('.letter').forEach(l=>l.classList.remove('opening'));
-el.classList.add('opening');
+document.querySelectorAll(".letter")
+.forEach(l=>l.classList.remove("opening"));
+
+el.classList.add("opening");
 
 setTimeout(()=>{
 hideAll();
 let v=document.getElementById("letterVideo");
 v.src=videos[i-1];
-document.getElementById("videoScreen").classList.add('show');
+document.getElementById("videoScreen").classList.add("show");
 },600);
 }
 
 function closeVideo(){
-const v=document.getElementById("letterVideo");
+let v=document.getElementById("letterVideo");
 v.pause();
 v.src="";
 hideAll();
@@ -216,13 +237,13 @@ document.getElementById("letterScreen").classList.add("show");
 function nextFinal(){
 hideAll();
 document.getElementById("nextScreen").classList.add("show");
-playFinalSong();
+playSong();
 }
 
-function playFinalSong(){
-const song=document.getElementById("bgSong");
-song.currentTime=0;
-song.play();
+function playSong(){
+let s=document.getElementById("bgSong");
+s.currentTime=0;
+s.play();
 }
 </script>
 

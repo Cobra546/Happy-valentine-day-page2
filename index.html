@@ -119,6 +119,7 @@ width:34px;
 height:34px;
 font-size:20px;
 cursor:pointer;
+z-index:99;
 }
 
 /* Fade */
@@ -133,6 +134,47 @@ margin-top:20px;
 font-size:17px;
 line-height:1.7;
 animation:fadeIn 2s ease;
+}
+
+/* POPUP */
+#lovePopup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.7);
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:9999;
+opacity:0;
+pointer-events:none;
+transition:.6s;
+}
+
+#lovePopup.show{
+opacity:1;
+pointer-events:auto;
+}
+
+.popupBox{
+background:white;
+color:#ff2f6d;
+padding:50px 40px;
+border-radius:25px;
+font-size:42px;
+font-weight:900;
+text-align:center;
+letter-spacing:3px;
+animation:popupZoom 1s ease infinite alternate;
+font-family:'Georgia',cursive;
+box-shadow:0 0 40px rgba(255,77,109,.8);
+}
+
+@keyframes popupZoom{
+from{transform:scale(.9)}
+to{transform:scale(1.05)}
 }
 </style>
 </head>
@@ -166,7 +208,7 @@ animation:fadeIn 2s ease;
 <div class="screen" id="videoScreen">
 <div class="videoBox">
 <button class="closeBtn" onclick="closeVideo()">✖</button>
-<video id="letterVideo" controls></video>
+<video id="letterVideo" controls playsinline></video>
 </div>
 <button onclick="nextFinal()">Next ➡️</button>
 </div>
@@ -180,12 +222,17 @@ animation:fadeIn 2s ease;
 </video>
 
 <p class="finalText">
-Yaar mujhy pata hai main acha aur perfect boyfriend nhi hun but i swear main banna chah ta hun aur apko kabhi bhi khona nhi chah ta hn main manta hun main apko tang karta hun gussa dila ta hun aesi harkaten karta hun jissy apko gussa aye magar main sach main jaan ky nhi karta bas kbhi kbara jaan ky karta hun lekin sorry meri waja sy apki izzat py baat ayi aur apky father aur apky ghar py pata chal gaya I'm so sorry aur mujhy us baat ka guilt hai aur pakka ab aisa kuch nhi hoga jissy apki izzat kharab ho promise aur apko ayenda kbhi bhi meri waja sy kisi sy chup na nhi pady ga
+Yaar mujhy pata hai main acha aur perfect boyfriend nhi hun but i swear main banna chah ta hun aur apko kabhi bhi khona nhi chah ta hn main manta hun main apko tang karta hun gussa dila ta hun aesi harkaten karta hun jissy apko gussa aye magar main sach main jaan ky nhi karta bas kbhi kbara jaan ky karta hun lekin sorry meri waja sy apki izzat py baat ayi aur apky father aur apky ghar py pata chal gaya I'm so sorry aur mujhy us baat ka guilt hai aur pakka ab aisa kuch nhi hoga jissy apki izzat kharab ho promise
 </p>
 
 <audio id="bgSong" loop>
 <source src="night_changes.mp3" type="audio/mpeg">
 </audio>
+</div>
+
+<!-- POPUP -->
+<div id="lovePopup">
+<div class="popupBox">I LOVE YOU SO MUCH ❤️</div>
 </div>
 
 <script>
@@ -207,12 +254,13 @@ document.getElementById("noScreen").classList.add("show");
 function restart(){location.reload();}
 
 let videos=[
-"lv_0_20260202185657.mp4",
+"InShot_20260131_232057669.mp4",
 "InShot_20260131_232002917.mp4",
 "InShot_20260131_231837455.mp4"
 ];
 
 function openVideo(i,el){
+
 document.querySelectorAll(".letter")
 .forEach(l=>l.classList.remove("opening"));
 
@@ -220,9 +268,14 @@ el.classList.add("opening");
 
 setTimeout(()=>{
 hideAll();
+
 let v=document.getElementById("letterVideo");
 v.src=videos[i-1];
+v.load();
+v.play();
+
 document.getElementById("videoScreen").classList.add("show");
+
 },600);
 }
 
@@ -244,6 +297,10 @@ function playSong(){
 let s=document.getElementById("bgSong");
 s.currentTime=0;
 s.play();
+
+setTimeout(()=>{
+document.getElementById("lovePopup").classList.add("show");
+},4000);
 }
 </script>
 

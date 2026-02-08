@@ -18,7 +18,7 @@ color:white;
 overflow:hidden;
 }
 
-/* Screens */
+/* screens */
 .screen{
 display:none;
 flex-direction:column;
@@ -30,11 +30,11 @@ width:100%;
 max-width:520px;
 animation:fadeIn 1s ease;
 }
-.show{display:flex}
+.screen.show{display:flex}
 
-h1{font-size:28px;margin-bottom:20px}
+h1{margin-bottom:20px}
 
-/* Buttons */
+/* buttons */
 button{
 padding:12px 30px;
 border:none;
@@ -48,8 +48,13 @@ transition:.3s;
 }
 button:hover{transform:scale(1.1)}
 
-/* NO animation */
-.noText{font-size:22px;animation:shake .5s ease}
+@keyframes fadeIn{
+from{opacity:0;transform:scale(.9) translateY(40px)}
+to{opacity:1;transform:scale(1) translateY(0)}
+}
+
+/* NO */
+.noText{font-size:22px;animation:shake .5s}
 
 @keyframes shake{
 0%,100%{transform:translateX(0)}
@@ -58,14 +63,8 @@ button:hover{transform:scale(1.1)}
 75%{transform:translateX(-8px)}
 }
 
-/* LETTERS */
+/* letters */
 .letters{display:flex;gap:22px}
-
-@keyframes float{
-0%{transform:translateY(0) scale(1)}
-50%{transform:translateY(-18px) scale(1.05)}
-100%{transform:translateY(0) scale(1)}
-}
 
 .letter{
 width:90px;
@@ -73,31 +72,28 @@ height:120px;
 background:white;
 border-radius:14px;
 color:#ff4d6d;
+font-size:42px;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:42px;
 cursor:pointer;
-animation:float 2.2s infinite ease-in-out;
-transition:.4s;
+animation:float 2.2s infinite;
 box-shadow:0 10px 25px rgba(0,0,0,.25);
 }
-.letter:hover{transform:scale(1.15)}
 
-.letter:nth-child(1){animation-delay:0s}
-.letter:nth-child(2){animation-delay:.3s}
-.letter:nth-child(3){animation-delay:.6s}
+@keyframes float{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-18px)}
+}
 
-/* Letter open */
-.opening{animation:openAnim .6s ease forwards}
+.opening{animation:openAnim .6s}
 
 @keyframes openAnim{
 0%{transform:scale(.5) rotate(-12deg);opacity:0}
-60%{transform:scale(1.25) rotate(8deg)}
 100%{transform:scale(1) rotate(0);opacity:1}
 }
 
-/* Video */
+/* video */
 .videoBox{position:relative;width:100%}
 
 video{
@@ -106,75 +102,103 @@ border-radius:18px;
 margin-top:15px;
 }
 
-/* Close */
+/* close */
 .closeBtn{
 position:absolute;
 top:-12px;
 right:-12px;
-background:white;
-color:#ff4d6d;
-border:none;
-border-radius:50%;
 width:34px;
 height:34px;
+border-radius:50%;
+border:none;
+background:white;
+color:#ff4d6d;
 font-size:20px;
 cursor:pointer;
-z-index:99;
+z-index:10;
 }
 
-/* Fade */
-@keyframes fadeIn{
-0%{opacity:0;transform:scale(.9) translateY(40px)}
-100%{opacity:1;transform:scale(1) translateY(0)}
-}
-
-/* Final text */
+/* final text */
 .finalText{
 margin-top:20px;
-font-size:17px;
+font-size:16px;
 line-height:1.7;
-animation:fadeIn 2s ease;
 }
 
-/* POPUP */
-#lovePopup{
+/* FINAL LOVE SCREEN */
+#loveScreen{
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,.7);
-display:flex;
+background:radial-gradient(circle,#200020,#000);
+display:none;
 align-items:center;
 justify-content:center;
+flex-direction:column;
 z-index:9999;
-opacity:0;
-pointer-events:none;
-transition:.6s;
+overflow:hidden;
 }
 
-#lovePopup.show{
-opacity:1;
-pointer-events:auto;
-}
+#loveScreen.show{display:flex}
 
-.popupBox{
+#finalPopup{
 background:white;
-color:#ff2f6d;
-padding:50px 40px;
-border-radius:25px;
+color:#ff2f7d;
+padding:45px 40px;
+border-radius:30px;
 font-size:42px;
 font-weight:900;
-text-align:center;
 letter-spacing:3px;
-animation:popupZoom 1s ease infinite alternate;
-font-family:'Georgia',cursive;
-box-shadow:0 0 40px rgba(255,77,109,.8);
+cursor:pointer;
+animation:pulse 1s infinite alternate;
+box-shadow:0 0 40px rgba(255,0,150,.9);
+z-index:5;
 }
 
-@keyframes popupZoom{
+@keyframes pulse{
 from{transform:scale(.9)}
-to{transform:scale(1.05)}
+to{transform:scale(1.1)}
+}
+
+#behindText{
+position:absolute;
+bottom:15%;
+font-size:26px;
+opacity:0;
+transition:1s;
+}
+
+#behindText.show{opacity:1}
+
+/* balloons */
+.balloon{
+position:absolute;
+bottom:-120px;
+width:50px;
+height:65px;
+border-radius:50%;
+animation:floatUp 8s linear infinite;
+}
+.balloon.pink{background:#ff4db8}
+.balloon.purple{background:#9b4dff}
+
+@keyframes floatUp{
+to{transform:translateY(-120vh)}
+}
+
+/* fireworks */
+.spark{
+position:absolute;
+width:6px;
+height:6px;
+border-radius:50%;
+animation:boom 1.5s forwards;
+}
+
+@keyframes boom{
+to{transform:scale(6);opacity:0}
 }
 </style>
 </head>
@@ -191,16 +215,16 @@ to{transform:scale(1.05)}
 <!-- NO -->
 <div class="screen" id="noScreen">
 <p class="noText">Mujhy tw yehi umeed thi 🙂‍↕️🙂‍↕️</p>
-<button onclick="restart()">Try Again</button>
+<button onclick="location.reload()">Try Again</button>
 </div>
 
 <!-- LETTERS -->
 <div class="screen" id="letterScreen">
 <h1>Open a love letter 💌</h1>
 <div class="letters">
+<div class="letter" onclick="openVideo(0,this)">💌</div>
 <div class="letter" onclick="openVideo(1,this)">💌</div>
 <div class="letter" onclick="openVideo(2,this)">💌</div>
-<div class="letter" onclick="openVideo(3,this)">💌</div>
 </div>
 </div>
 
@@ -213,7 +237,7 @@ to{transform:scale(1.05)}
 <button onclick="nextFinal()">Next ➡️</button>
 </div>
 
-<!-- FINAL -->
+<!-- NIGHT -->
 <div class="screen" id="nextScreen">
 <h1>from this to this how night change ✨</h1>
 
@@ -222,20 +246,31 @@ to{transform:scale(1.05)}
 </video>
 
 <p class="finalText">
-Yaar mujhy pata hai main acha aur perfect boyfriend nhi hun but i swear main banna chah ta hun aur apko kabhi bhi khona nhi chah ta hn main manta hun main apko tang karta hun gussa dila ta hun aesi harkaten karta hun jissy apko gussa aye magar main sach main jaan ky nhi karta bas kbhi kbara jaan ky karta hun lekin sorry meri waja sy apki izzat py baat ayi aur apky father aur apky ghar py pata chal gaya I'm so sorry aur mujhy us baat ka guilt hai aur pakka ab aisa kuch nhi hoga jissy apki izzat kharab ho promise aur ayenda apko meri waja sy kisi sy chupna nhi pady ga aur na hi kisi ky samny sharmin hona pady ga
+Yaar mujhy pata hai main acha aur perfect boyfriend nhi hun but i swear main banna chah ta hun aur apko kabhi bhi khona nhi chah ta hn main manta hun main apko tang karta hun gussa dila ta hun aesi harkaten karta hun jissy apko gussa aye magar main sach main jaan ky nhi karta bas kbhi kbara jaan ky karta hun lekin sorry meri waja sy apki izzat py baat ayi aur apky father aur apky ghar py pata chal gaya I'm so sorry aur mujhy us baat ka guilt hai aur pakka ab aisa kuch nhi hoga jissy apki izzat kharab ho promise aur ayenda apko meri waja sy kisi sy chupna nhi pady ga aur na hi kisi ky samny sharmin hona pady ga  
 </p>
 
-<audio id="bgSong" loop>
+<audio id="bgSong">
 <source src="night_changes.mp3" type="audio/mpeg">
 </audio>
 </div>
 
-<!-- POPUP -->
-<div id="lovePopup">
-<div class="popupBox">I LOVE YOU SO MUCH ❤️</div>
+<!-- FINAL -->
+<div id="loveScreen">
+<div id="fireworks"></div>
+<div id="balloons"></div>
+
+<h2 id="behindText">That is my small gift for you 💖</h2>
+
+<div id="finalPopup" onclick="closeFinalPopup()">I LOVE YOU SO MUCH ❤️</div>
 </div>
 
 <script>
+const videos=[
+"lv_0_20260202185657.mp4",
+"InShot_20260131_232002917.mp4",
+"InShot_20260131_231837455.mp4"
+];
+
 function hideAll(){
 document.querySelectorAll(".screen")
 .forEach(s=>s.classList.remove("show"));
@@ -243,24 +278,15 @@ document.querySelectorAll(".screen")
 
 function yesClick(){
 hideAll();
-document.getElementById("letterScreen").classList.add("show");
+letterScreen.classList.add("show");
 }
 
 function noClick(){
 hideAll();
-document.getElementById("noScreen").classList.add("show");
+noScreen.classList.add("show");
 }
 
-function restart(){location.reload();}
-
-let videos=[
-"lv_0_20260202185657.mp4",
-"InShot_20260131_232002917.mp4",
-"InShot_20260131_231837455.mp4"
-];
-
 function openVideo(i,el){
-
 document.querySelectorAll(".letter")
 .forEach(l=>l.classList.remove("opening"));
 
@@ -268,39 +294,68 @@ el.classList.add("opening");
 
 setTimeout(()=>{
 hideAll();
-
-let v=document.getElementById("letterVideo");
-v.src=videos[i-1];
+const v=letterVideo;
+v.src=videos[i];
 v.load();
 v.play();
-
-document.getElementById("videoScreen").classList.add("show");
-
+videoScreen.classList.add("show");
 },600);
 }
 
 function closeVideo(){
-let v=document.getElementById("letterVideo");
-v.pause();
-v.src="";
+letterVideo.pause();
+letterVideo.src="";
 hideAll();
-document.getElementById("letterScreen").classList.add("show");
+letterScreen.classList.add("show");
 }
 
 function nextFinal(){
 hideAll();
-document.getElementById("nextScreen").classList.add("show");
-playSong();
-}
+nextScreen.classList.add("show");
 
-function playSong(){
-let s=document.getElementById("bgSong");
-s.currentTime=0;
-s.play();
+bgSong.currentTime=0;
+bgSong.play();
 
 setTimeout(()=>{
-document.getElementById("lovePopup").classList.add("show");
-},4000);
+hideAll();
+showFinalLove();
+},5000);
+}
+
+/* FINAL SCREEN */
+function showFinalLove(){
+loveScreen.classList.add("show");
+spawnBalloons();
+fireworksLoop();
+}
+
+function closeFinalPopup(){
+finalPopup.style.display="none";
+behindText.classList.add("show");
+}
+
+/* balloons */
+function spawnBalloons(){
+for(let i=0;i<18;i++){
+let b=document.createElement("div");
+b.className="balloon "+(Math.random()>0.5?"pink":"purple");
+b.style.left=Math.random()*100+"%";
+b.style.animationDuration=(6+Math.random()*6)+"s";
+balloons.appendChild(b);
+}
+}
+
+/* fireworks */
+function fireworksLoop(){
+setInterval(()=>{
+let s=document.createElement("div");
+s.className="spark";
+s.style.left=Math.random()*100+"%";
+s.style.top=Math.random()*60+"%";
+s.style.background=Math.random()>0.5?"#ff4db8":"#9b4dff";
+fireworks.appendChild(s);
+setTimeout(()=>s.remove(),1500);
+},600);
 }
 </script>
 

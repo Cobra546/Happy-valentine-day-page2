@@ -68,7 +68,16 @@ cursor:pointer;
 animation:float 2.5s infinite;
 box-shadow:0 10px 25px rgba(0,0,0,.3);
 }
-
+#nextFromLetter{
+margin-top:15px;
+background:white;
+color:#ff4d6d;
+border:none;
+padding:10px 22px;
+border-radius:25px;
+font-size:18px;
+cursor:pointer;
+}
 @keyframes float{
 0%,100%{transform:translateY(0)}
 50%{transform:translateY(-18px)}
@@ -220,9 +229,13 @@ to{opacity:1;transform:scale(1)}
 <!-- VIDEO -->
 <div class="screen" id="videoScreen">
 <div class="videoWrap">
+
 <button class="closeBtn" onclick="closeVideo()">✖</button>
+
 <video id="video" controls playsinline></video>
-<div id="arrowNext" onclick="goNight()">➡️</div>
+
+<button id="nextFromLetter" onclick="goNight()">Next ➡️</button>
+
 </div>
 </div>
 

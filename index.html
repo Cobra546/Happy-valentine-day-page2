@@ -2,374 +2,299 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Valentine ❤️</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Gift ❤️</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <style>
-html{scroll-behavior:smooth}
-
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI}
 
 body{
-background:linear-gradient(135deg,#ff4d6d,#ff8fa3);
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-color:white;
+background:black;
 overflow:hidden;
+color:white;
 }
 
-/* screens */
+/* ---------- Screens ---------- */
 .screen{
 display:none;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-text-align:center;
-padding:20px;
+position:fixed;
+top:0;left:0;
 width:100%;
-max-width:520px;
-animation:fadeIn 1s ease;
-}
-.screen.show{display:flex}
-
-h1{margin-bottom:20px}
-
-/* buttons */
-button{
-padding:12px 30px;
-border:none;
-border-radius:30px;
-font-size:18px;
-cursor:pointer;
-margin:12px;
-background:white;
-color:#ff4d6d;
-transition:.3s;
-}
-button:hover{transform:scale(1.1)}
-
-@keyframes fadeIn{
-from{opacity:0;transform:scale(.9) translateY(40px)}
-to{opacity:1;transform:scale(1) translateY(0)}
-}
-
-/* NO */
-.noText{font-size:22px;animation:shake .5s}
-
-@keyframes shake{
-0%,100%{transform:translateX(0)}
-25%{transform:translateX(-10px)}
-50%{transform:translateX(10px)}
-75%{transform:translateX(-8px)}
-}
-
-/* letters */
-.letters{display:flex;gap:22px}
-
-.letter{
-width:90px;
-height:120px;
-background:white;
-border-radius:14px;
-color:#ff4d6d;
-font-size:42px;
-display:flex;
-align-items:center;
+height:100%;
 justify-content:center;
+align-items:center;
+flex-direction:column;
+}
+
+.show{display:flex}
+
+/* ---------- LETTER ---------- */
+#letter{
+width:200px;
+height:140px;
+background:#ff4d88;
+border-radius:10px;
+display:flex;
+justify-content:center;
+align-items:center;
 cursor:pointer;
-animation:float 2.2s infinite;
-box-shadow:0 10px 25px rgba(0,0,0,.25);
+animation:float 2s infinite alternate;
+}
+
+#letter span{
+font-size:40px;
 }
 
 @keyframes float{
-0%,100%{transform:translateY(0)}
-50%{transform:translateY(-18px)}
+from{transform:translateY(0)}
+to{transform:translateY(-20px)}
 }
 
-.opening{animation:openAnim .6s}
-
-@keyframes openAnim{
-0%{transform:scale(.5) rotate(-12deg);opacity:0}
-100%{transform:scale(1) rotate(0);opacity:1}
+/* ---------- VIDEO ---------- */
+#videoScreen video{
+width:90%;
+max-height:80%;
+border-radius:15px;
 }
 
-/* video */
-.videoBox{position:relative;width:100%}
-
-video{
-width:100%;
-border-radius:18px;
-margin-top:15px;
-}
-
-/* close */
-.closeBtn{
+#cross{
 position:absolute;
-top:-12px;
-right:-12px;
-width:34px;
-height:34px;
-border-radius:50%;
-border:none;
-background:white;
-color:#ff4d6d;
-font-size:20px;
+top:20px;
+right:25px;
+font-size:32px;
 cursor:pointer;
-z-index:10;
 }
 
-/* text screen */
-.finalText{
-margin-top:20px;
-font-size:16px;
-line-height:1.7;
-}
-
-/* FINAL LOVE SCREEN */
-#loveScreen{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:radial-gradient(circle,#200020,#000);
-display:none;
-align-items:center;
-justify-content:center;
-flex-direction:column;
-z-index:9999;
-overflow:hidden;
-}
-
-#loveScreen.show{display:flex}
-
-#finalPopup{
-background:white;
-color:#ff2f7d;
-padding:45px 40px;
-border-radius:30px;
-font-size:42px;
-font-weight:900;
-letter-spacing:3px;
+/* ---------- ARROW ---------- */
+#arrowNext{
+position:absolute;
+right:5px;
+top:50%;
+transform:translateY(-50%);
+font-size:55px;
 cursor:pointer;
+opacity:0;
+pointer-events:none;
 animation:pulse 1s infinite alternate;
-box-shadow:0 0 40px rgba(255,0,150,.9);
-z-index:5;
+}
+
+#arrowNext.show{
+opacity:1;
+pointer-events:auto;
 }
 
 @keyframes pulse{
-from{transform:scale(.9)}
-to{transform:scale(1.1)}
+from{transform:translateY(-50%) scale(1)}
+to{transform:translateY(-50%) scale(1.3)}
 }
 
-#behindText{
-position:absolute;
-bottom:15%;
-font-size:26px;
-opacity:0;
-transition:1s;
+/* ---------- TEXT ---------- */
+#textScreen{
+padding:20px;
+text-align:center;
+overflow-y:auto;
 }
 
-#behindText.show{opacity:1}
+#textScreen p{
+max-width:800px;
+font-size:18px;
+line-height:1.7;
+}
 
-/* balloons */
+button{
+margin-top:25px;
+padding:12px 28px;
+border:none;
+border-radius:25px;
+background:#ff4d88;
+color:white;
+font-size:18px;
+cursor:pointer;
+}
+
+/* ---------- POPUP ---------- */
+#popupScreen{
+background:linear-gradient(#2b0040,#000);
+}
+
+#popup{
+background:white;
+color:black;
+padding:50px;
+border-radius:25px;
+font-size:34px;
+font-weight:bold;
+cursor:pointer;
+}
+
+#afterPopup{
+display:none;
+margin-top:25px;
+font-size:22px;
+}
+
+/* ---------- BALLOONS ---------- */
 .balloon{
 position:absolute;
-bottom:-120px;
-width:50px;
-height:65px;
+bottom:-100px;
+width:40px;
+height:60px;
 border-radius:50%;
-animation:floatUp 8s linear infinite;
+animation:rise 6s linear infinite;
+opacity:.8;
 }
-.balloon.pink{background:#ff4db8}
-.balloon.purple{background:#9b4dff}
 
-@keyframes floatUp{
+@keyframes rise{
 to{transform:translateY(-120vh)}
 }
 
-/* fireworks */
+/* ---------- FIREWORK ---------- */
 .spark{
 position:absolute;
 width:6px;
 height:6px;
 border-radius:50%;
-animation:boom 1.5s forwards;
+animation:boom 1.5s linear forwards;
 }
 
 @keyframes boom{
-to{transform:scale(6);opacity:0}
+to{
+transform:translate(var(--x),var(--y));
+opacity:0;
+}
 }
 </style>
 </head>
 
 <body>
 
-<!-- START -->
-<div class="screen show" id="startScreen">
-<h1>Will you be my valentine? 💗💞</h1>
-<button onclick="yesClick()">Yes</button>
-<button onclick="noClick()">No</button>
-</div>
-
-<!-- NO -->
-<div class="screen" id="noScreen">
-<p class="noText">Mujhy tw yehi umeed thi 🙂‍↕️🙂‍↕️</p>
-<button onclick="location.reload()">Try Again</button>
-</div>
-
-<!-- LETTERS -->
-<div class="screen" id="letterScreen">
-<h1>Open a love letter 💌</h1>
-<div class="letters">
-<div class="letter" onclick="openVideo(0,this)">💌</div>
-<div class="letter" onclick="openVideo(1,this)">💌</div>
-<div class="letter" onclick="openVideo(2,this)">💌</div>
-</div>
+<!-- LETTER -->
+<div id="letterScreen" class="screen show">
+<div id="letter" onclick="openLetter()"><span>💌</span></div>
 </div>
 
 <!-- VIDEO -->
-<div class="screen" id="videoScreen">
-<div class="videoBox">
-<button class="closeBtn" onclick="closeVideo()">✖</button>
-<video id="letterVideo" controls playsinline></video>
-</div>
-<button onclick="nextNight()">Next ➡️</button>
-</div>
+<div id="videoScreen" class="screen">
+<div id="cross" onclick="closeVideo()">❌</div>
 
-<!-- NIGHT -->
-<div class="screen" id="nightScreen">
-<h1>from this to this how night change ✨</h1>
-
-<video autoplay muted loop playsinline>
+<video id="mainVideo">
 <source src="lv_0_20260204010534.mp4" type="video/mp4">
 </video>
 
-<button onclick="goToText()">Next ➡️</button>
+<div id="arrowNext" onclick="goText()">➡️</div>
+
+<audio id="song">
+<source src="night_changes.mp3" type="audio/mpeg">
+</audio>
+
 </div>
 
 <!-- TEXT -->
-<div class="screen" id="textScreen">
-<h1>For You ❤️</h1>
-<p class="finalText" id="typingText"></p>
-<button onclick="goToFinal()">Next ➡️</button>
+<div id="textScreen" class="screen">
+<p>
+Yaar mujhy pata hai main acha aur perfect boyfriend nhi hun but i swear
+main banna chah ta hun aur apko kabhi bhi khona nhi chah ta hun
+Main manta hun main apko tang karta hun gussa dila ta hun aesi harkaten karta
+hun jissy apko gussa aye magar main sach main jaan ky nhi karta bas pata nhi 
+  kaisy ho jata hai
+<br><br>
+Lekin sorry meri waja sy apki izzat py baat ayi aur apky father aur apky ghar
+py pata chal gaya I'm so sorry aur mujhy us baat ka guilt hai aur pakka ab
+aisa kuch nhi hoga jissy apki izzat kharab ho promise aur na hi ab aapko meri
+  waja sy kisi ky samnny sharminda hona pady aur apna mon chupa na pady
+</p>
+
+<button onclick="goPopup()">Next</button>
 </div>
 
-<!-- FINAL -->
-<div id="loveScreen">
-<div id="fireworks"></div>
-<div id="balloons"></div>
-
-<h2 id="behindText">That is my small gift for you 💖</h2>
-
-<div id="finalPopup" onclick="closeFinalPopup()">I LOVE YOU SO MUCH ❤️</div>
+<!-- POPUP -->
+<div id="popupScreen" class="screen">
+<div id="popup" onclick="hidePopup()">I LOVE YOU SO MUCH</div>
+<div id="afterPopup">That is my small gift for you 💜🎈</div>
 </div>
 
 <script>
-const videos=[
-"lv_0_20260202185657.mp4",
-"InShot_20260131_232002917.mp4",
-"InShot_20260131_231837455.mp4"
-];
+const letterScreen=document.getElementById("letterScreen");
+const videoScreen=document.getElementById("videoScreen");
+const textScreen=document.getElementById("textScreen");
+const popupScreen=document.getElementById("popupScreen");
+
+const video=document.getElementById("mainVideo");
+const arrow=document.getElementById("arrowNext");
+const song=document.getElementById("song");
 
 function hideAll(){
 document.querySelectorAll(".screen").forEach(s=>s.classList.remove("show"));
 }
 
-function yesClick(){
+/* LETTER */
+function openLetter(){
 hideAll();
-letterScreen.classList.add("show");
-}
-
-function noClick(){
-hideAll();
-noScreen.classList.add("show");
-}
-
-function openVideo(i,el){
-document.querySelectorAll(".letter").forEach(l=>l.classList.remove("opening"));
-el.classList.add("opening");
-
-setTimeout(()=>{
-hideAll();
-letterVideo.src=videos[i];
-letterVideo.load();
-letterVideo.play();
 videoScreen.classList.add("show");
-},600);
+video.play();
+
+/* arrow after 4 sec */
+arrow.classList.remove("show");
+setTimeout(()=>arrow.classList.add("show"),4000);
+
+/* music start only here */
+song.currentTime=0;
+song.play();
 }
 
+/* CROSS */
 function closeVideo(){
-letterVideo.pause();
-letterVideo.src="";
+video.pause();
+song.pause();
 hideAll();
 letterScreen.classList.add("show");
 }
 
-function nextNight(){
-hideAll();
-nightScreen.classList.add("show");
-}
-
-function goToText(){
+/* TEXT */
+function goText(){
+video.pause();
+song.pause();
 hideAll();
 textScreen.classList.add("show");
-startTyping();
-window.scrollTo({top:0,behavior:"smooth"});
 }
 
-const apologyText=`Yaar mujhy pata hai main acha aur perfect boyfriend nhi hun but i swear main banna chah ta hun aur apko kabhi bhi khona nhi chah ta hn main manta hun main apko tang karta hun gussa dila ta hun aesi harkaten karta hun jissy apko gussa aye magar main sach main jaan ky nhi karta bas kbhi kbara jaan ky karta hun lekin sorry meri waja sy apki izzat py baat ayi aur apky father aur apky ghar py pata chal gaya I'm so sorry aur mujhy us baat ka guilt hai aur pakka ab aisa kuch nhi hoga jissy apki izzat kharab ho promise aur ayenda apko meri waja sy kisi sy chupna nhi pady ga aur na hi kisi ky samny sharminda hona pady ga`;
-
-function startTyping(){
-typingText.innerHTML="";
-let i=0;
-let timer=setInterval(()=>{
-typingText.innerHTML+=apologyText.charAt(i);
-i++;
-if(i>=apologyText.length) clearInterval(timer);
-},35);
-}
-
-function goToFinal(){
+/* POPUP */
+function goPopup(){
 hideAll();
-showFinalLove();
+popupScreen.classList.add("show");
+launchBalloons();
+fireworks();
 }
 
-function showFinalLove(){
-loveScreen.classList.add("show");
-spawnBalloons();
-fireworksLoop();
+function hidePopup(){
+document.getElementById("popup").style.display="none";
+document.getElementById("afterPopup").style.display="block";
 }
 
-function closeFinalPopup(){
-finalPopup.style.display="none";
-behindText.classList.add("show");
-}
-
-/* balloons */
-function spawnBalloons(){
-for(let i=0;i<18;i++){
+/* BALLOONS */
+function launchBalloons(){
+for(let i=0;i<20;i++){
 let b=document.createElement("div");
-b.className="balloon "+(Math.random()>0.5?"pink":"purple");
+b.className="balloon";
 b.style.left=Math.random()*100+"%";
-b.style.animationDuration=(6+Math.random()*6)+"s";
-balloons.appendChild(b);
+b.style.background=Math.random()>.5?"pink":"purple";
+b.style.animationDuration=4+Math.random()*4+"s";
+popupScreen.appendChild(b);
 }
 }
 
-/* fireworks */
-function fireworksLoop(){
-setInterval(()=>{
+/* FIREWORKS */
+function fireworks(){
+for(let i=0;i<80;i++){
 let s=document.createElement("div");
 s.className="spark";
-s.style.left=Math.random()*100+"%";
-s.style.top=Math.random()*60+"%";
-s.style.background=Math.random()>0.5?"#ff4db8":"#9b4dff";
-fireworks.appendChild(s);
-setTimeout(()=>s.remove(),1500);
-},600);
+s.style.left="50%";
+s.style.top="50%";
+s.style.background=Math.random()>.5?"pink":"purple":"white":"sky blue";
+s.style.setProperty("--x",(Math.random()*400-200)+"px");
+s.style.setProperty("--y",(Math.random()*400-200)+"px");
+popupScreen.appendChild(s);
+}
 }
 </script>
 

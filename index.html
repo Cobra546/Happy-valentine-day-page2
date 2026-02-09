@@ -68,16 +68,7 @@ cursor:pointer;
 animation:float 2.5s infinite;
 box-shadow:0 10px 25px rgba(0,0,0,.3);
 }
-#nextFromLetter{
-margin-top:15px;
-background:white;
-color:#ff4d6d;
-border:none;
-padding:10px 22px;
-border-radius:25px;
-font-size:18px;
-cursor:pointer;
-}
+
 @keyframes float{
 0%,100%{transform:translateY(0)}
 50%{transform:translateY(-18px)}
@@ -99,7 +90,16 @@ border:none;
 cursor:pointer;
 font-size:18px;
 }
-
+#nextFromLetter{
+margin-top:15px;
+background:white;
+color:#ff4d6d;
+border:none;
+padding:10px 22px;
+border-radius:25px;
+font-size:18px;
+cursor:pointer;
+}
 /* ARROW */
 #arrowNext{
 position:absolute;
@@ -245,7 +245,9 @@ to{opacity:1;transform:scale(1)}
 <video id="nightVideo" autoplay muted playsinline>
 <source src="lv_0_20260204010534.mp4" type="video/mp4">
 </video>
-<div id="arrowNight" class="bigArrow" onclick="goText()">Next here is something for you</div>
+<div id="arrowNight" onclick="goText()">➡️</div>
+</div>
+</div>
 
 <!-- TEXT -->
 <div class="screen" id="text">
@@ -270,7 +272,7 @@ const arrowNight=document.getElementById("arrowNight");
 const song=document.getElementById("song");
 
 const letterVideos=[
-"lv_0_20260202185657.mp4",
+"InShot_20260131_232057669.mp4",
 "InShot_20260131_232002917.mp4",
 "InShot_20260131_231837455.mp4"
 ];

@@ -6,6 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+html{scroll-behavior:smooth}
+
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
 
 body{
@@ -41,7 +43,7 @@ border:none;
 border-radius:30px;
 font-size:18px;
 cursor:pointer;
-margin:10px;
+margin:12px;
 background:white;
 color:#ff4d6d;
 transition:.3s;
@@ -118,7 +120,7 @@ cursor:pointer;
 z-index:10;
 }
 
-/* final text */
+/* text screen */
 .finalText{
 margin-top:20px;
 font-size:16px;
@@ -207,7 +209,7 @@ to{transform:scale(6);opacity:0}
 
 <!-- START -->
 <div class="screen show" id="startScreen">
-<h1>Will you be my valentine?? 💗💖</h1>
+<h1>Will you be my valentine? 💗💞</h1>
 <button onclick="yesClick()">Yes</button>
 <button onclick="noClick()">No</button>
 </div>
@@ -234,24 +236,25 @@ to{transform:scale(6);opacity:0}
 <button class="closeBtn" onclick="closeVideo()">✖</button>
 <video id="letterVideo" controls playsinline></video>
 </div>
-<button onclick="nextFinal()">Next ➡️</button>
+<button onclick="nextNight()">Next ➡️</button>
 </div>
 
 <!-- NIGHT -->
-<div class="screen" id="nextScreen">
+<div class="screen" id="nightScreen">
 <h1>from this to this how night change ✨</h1>
 
 <video autoplay muted loop playsinline>
 <source src="lv_0_20260204010534.mp4" type="video/mp4">
 </video>
 
-<p class="finalText">
-Yaar mujhy pata hai main acha aur perfect boyfriend nhi hun but i swear main banna chah ta hun aur apko kabhi bhi khona nhi chah ta hn main manta hun main apko tang karta hun gussa dila ta hun aesi harkaten karta hun jissy apko gussa aye magar main sach main jaan ky nhi karta bas kbhi kbara jaan ky karta hun lekin sorry meri waja sy apki izzat py baat ayi aur apky father aur apky ghar py pata chal gaya I'm so sorry aur mujhy us baat ka guilt hai aur pakka ab aisa kuch nhi hoga jissy apki izzat kharab ho promise aur ayenda apko meri waja sy kisi sy chupna nhi pady ga aur na hi kisi ky samny sharmin hona pady ga  
-</p>
+<button onclick="goToText()">Next ➡️</button>
+</div>
 
-<audio id="bgSong">
-<source src="night_changes.mp3" type="audio/mpeg">
-</audio>
+<!-- TEXT -->
+<div class="screen" id="textScreen">
+<h1>For You ❤️</h1>
+<p class="finalText" id="typingText"></p>
+<button onclick="goToFinal()">Next ➡️</button>
 </div>
 
 <!-- FINAL -->
@@ -272,8 +275,7 @@ const videos=[
 ];
 
 function hideAll(){
-document.querySelectorAll(".screen")
-.forEach(s=>s.classList.remove("show"));
+document.querySelectorAll(".screen").forEach(s=>s.classList.remove("show"));
 }
 
 function yesClick(){
@@ -287,17 +289,14 @@ noScreen.classList.add("show");
 }
 
 function openVideo(i,el){
-document.querySelectorAll(".letter")
-.forEach(l=>l.classList.remove("opening"));
-
+document.querySelectorAll(".letter").forEach(l=>l.classList.remove("opening"));
 el.classList.add("opening");
 
 setTimeout(()=>{
 hideAll();
-const v=letterVideo;
-v.src=videos[i];
-v.load();
-v.play();
+letterVideo.src=videos[i];
+letterVideo.load();
+letterVideo.play();
 videoScreen.classList.add("show");
 },600);
 }
@@ -309,20 +308,35 @@ hideAll();
 letterScreen.classList.add("show");
 }
 
-function nextFinal(){
+function nextNight(){
 hideAll();
-nextScreen.classList.add("show");
-
-bgSong.currentTime=0;
-bgSong.play();
-
-setTimeout(()=>{
-hideAll();
-showFinalLove();
-},5000);
+nightScreen.classList.add("show");
 }
 
-/* FINAL SCREEN */
+function goToText(){
+hideAll();
+textScreen.classList.add("show");
+startTyping();
+window.scrollTo({top:0,behavior:"smooth"});
+}
+
+const apologyText=`Yaar mujhy pata hai main acha aur perfect boyfriend nhi hun but i swear main banna chah ta hun aur apko kabhi bhi khona nhi chah ta hn main manta hun main apko tang karta hun gussa dila ta hun aesi harkaten karta hun jissy apko gussa aye magar main sach main jaan ky nhi karta bas kbhi kbara jaan ky karta hun lekin sorry meri waja sy apki izzat py baat ayi aur apky father aur apky ghar py pata chal gaya I'm so sorry aur mujhy us baat ka guilt hai aur pakka ab aisa kuch nhi hoga jissy apki izzat kharab ho promise aur ayenda apko meri waja sy kisi sy chupna nhi pady ga aur na hi kisi ky samny sharminda hona pady ga`;
+
+function startTyping(){
+typingText.innerHTML="";
+let i=0;
+let timer=setInterval(()=>{
+typingText.innerHTML+=apologyText.charAt(i);
+i++;
+if(i>=apologyText.length) clearInterval(timer);
+},35);
+}
+
+function goToFinal(){
+hideAll();
+showFinalLove();
+}
+
 function showFinalLove(){
 loveScreen.classList.add("show");
 spawnBalloons();

@@ -98,6 +98,37 @@ height:32px;
 border:none;
 cursor:pointer;
 font-size:18px;
+.bigArrow{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:90px;
+cursor:pointer;
+background:rgba(255,255,255,.85);
+color:#ff2f7d;
+width:130px;
+height:130px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 0 40px rgba(255,0,150,.8);
+animation:arrowPulse 1.2s infinite alternate;
+z-index:10;
+opacity:0;
+pointer-events:none;
+}
+
+.bigArrow.show{
+opacity:1;
+pointer-events:auto;
+}
+
+@keyframes arrowPulse{
+from{transform:translate(-50%,-50%) scale(.9)}
+to{transform:translate(-50%,-50%) scale(1.15)}
+}
 }
 
 /* ARROW */
@@ -245,9 +276,7 @@ to{opacity:1;transform:scale(1)}
 <video id="nightVideo" autoplay muted playsinline>
 <source src="lv_0_20260204010534.mp4" type="video/mp4">
 </video>
-<div id="arrowNight" onclick="goText()">➡️</div>
-</div>
-</div>
+<div id="arrowNight" class="bigArrow" onclick="goText()">➡️</div>
 
 <!-- TEXT -->
 <div class="screen" id="text">

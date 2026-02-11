@@ -245,8 +245,6 @@ to{opacity:1;transform:scale(1)}
 <video id="nightVideo" autoplay muted playsinline>
 <source src="lv_0_20260204010534.mp4" type="video/mp4">
 </video>
-<div id="arrowNight" onclick="goText()">➡️</div>
-</div>
 </div>
 
 <!-- TEXT -->
@@ -308,7 +306,18 @@ setTimeout(()=>arrowNight.classList.add("show"),4000);
 song.currentTime=0;
 song.play();
 }
+function goNight(){
+  show("night");
 
+  // song start
+  song.currentTime = 0;
+  song.play();
+
+  // 7 sec baad auto boyfriend text screen
+  setTimeout(()=>{
+    goText();
+  },7000);
+}
 /* TEXT */
 const apology=`Yaar mujhy pata hai main acha aur perfect boyfriend nhi hun but i swear main banna chah ta hun aur apko kabhi bhi khona nhi chah ta hn main manta hun main apko tang karta hun gussa dila ta hun aesi harkaten karta hun jissy apko gussa aye magar main sach main jaan ky nhi karta bas kbhi kbara jaan ky karta hun lekin sorry meri waja sy apki izzat py baat ayi aur apky father aur apky ghar py pata chal gaya I'm so sorry aur mujhy us baat ka guilt hai aur pakka ab aisa kuch nhi hoga jissy apki izzat kharab ho promise aur ayenda apko meri waja sy kisi sy chupna nhi pady ga aur na hi kisi ky samny sharminda hona pady ga`;
 

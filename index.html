@@ -31,8 +31,6 @@ animation:fadeIn 1s ease;
 }
 .show{display:flex}
 
-h1{margin-bottom:20px}
-
 button{
 padding:12px 28px;
 border:none;
@@ -90,6 +88,7 @@ border:none;
 cursor:pointer;
 font-size:18px;
 }
+
 #nextFromLetter{
 margin-top:15px;
 background:white;
@@ -100,28 +99,6 @@ border-radius:25px;
 font-size:18px;
 cursor:pointer;
 }
-/* ARROW */
-#arrowNext{
-position:absolute;
-right:-30px;
-top:50%;
-transform:translateY(-50%);
-font-size:45px;
-cursor:pointer;
-opacity:0;
-pointer-events:none;
-animation:pulse 1s infinite alternate;
-}
-
-#arrowNext.show{
-opacity:1;
-pointer-events:auto;
-}
-
-@keyframes pulse{
-from{transform:translateY(-50%) scale(1)}
-to{transform:translateY(-50%) scale(1.3)}
-}
 
 .finalText{
 font-size:17px;
@@ -130,7 +107,7 @@ margin-top:20px;
 min-height:200px;
 }
 
-/* POPUP */
+/* FINAL */
 #finalScreen{
 position:fixed;
 top:0;left:0;
@@ -194,6 +171,11 @@ animation:boom 1.5s forwards;
 to{transform:scale(6);opacity:0}
 }
 
+@keyframes pulse{
+from{transform:scale(.9)}
+to{transform:scale(1.1)}
+}
+
 @keyframes fadeIn{
 from{opacity:0;transform:scale(.9)}
 to{opacity:1;transform:scale(1)}
@@ -205,7 +187,7 @@ to{opacity:1;transform:scale(1)}
 
 <!-- START -->
 <div class="screen show" id="start">
-<h1>Will you be my valentine? 💗💞</h1>
+<h1>Will you be my valentine? 💗</h1>
 <button onclick="yes()">Yes</button>
 <button onclick="no()">No</button>
 </div>
@@ -229,13 +211,9 @@ to{opacity:1;transform:scale(1)}
 <!-- VIDEO -->
 <div class="screen" id="videoScreen">
 <div class="videoWrap">
-
 <button class="closeBtn" onclick="closeVideo()">✖</button>
-
 <video id="video" controls playsinline></video>
-
 <button id="nextFromLetter" onclick="goNight()">Next ➡️</button>
-
 </div>
 </div>
 
@@ -245,6 +223,7 @@ to{opacity:1;transform:scale(1)}
 <video id="nightVideo" autoplay muted playsinline>
 <source src="lv_0_20260204010534.mp4" type="video/mp4">
 </video>
+</div>
 </div>
 
 <!-- TEXT -->
@@ -265,8 +244,6 @@ to{opacity:1;transform:scale(1)}
 <script>
 const screens=document.querySelectorAll(".screen");
 const video=document.getElementById("video");
-const nightVideo=document.getElementById("nightVideo");
-const arrowNight=document.getElementById("arrowNight");
 const song=document.getElementById("song");
 
 const letterVideos=[
@@ -301,23 +278,14 @@ show("letters");
 /* NIGHT */
 function goNight(){
 show("night");
-arrowNight.classList.remove("show");
-setTimeout(()=>arrowNight.classList.add("show"),4000);
 song.currentTime=0;
 song.play();
-}
-function goNight(){
-  show("night");
 
-  // song start
-  song.currentTime = 0;
-  song.play();
-
-  // 7 sec baad auto boyfriend text screen
-  setTimeout(()=>{
-    goText();
-  },7000);
+setTimeout(()=>{
+goText();
+},3000);
 }
+
 /* TEXT */
 const apology=`Yaar mujhy pata hai main acha aur perfect boyfriend nhi hun but i swear main banna chah ta hun aur apko kabhi bhi khona nhi chah ta hn main manta hun main apko tang karta hun gussa dila ta hun aesi harkaten karta hun jissy apko gussa aye magar main sach main jaan ky nhi karta bas kbhi kbara jaan ky karta hun lekin sorry meri waja sy apki izzat py baat ayi aur apky father aur apky ghar py pata chal gaya I'm so sorry aur mujhy us baat ka guilt hai aur pakka ab aisa kuch nhi hoga jissy apki izzat kharab ho promise aur ayenda apko meri waja sy kisi sy chupna nhi pady ga aur na hi kisi ky samny sharminda hona pady ga`;
 
